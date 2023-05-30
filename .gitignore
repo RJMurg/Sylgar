@@ -3,6 +3,9 @@ DeltaGreen
 DungeonsAndDragons
 *.pdf
 
+# The DB
+db.json
+
 # Logs
 logs
 *.log
