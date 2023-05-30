@@ -41,6 +41,6 @@ const initialGenerate = async() => {
     await db.write();
 };
 
-if(generated){
+if(!generated){
     initialGenerate();
 }
