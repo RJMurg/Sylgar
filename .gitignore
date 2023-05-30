@@ -1,3 +1,8 @@
+# The books
+DeltaGreen
+DungeonsAndDragons
+*.pdf
+
 # Logs
 logs
 *.log
