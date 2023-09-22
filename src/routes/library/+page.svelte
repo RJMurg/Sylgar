@@ -2,10 +2,30 @@
     import { base } from '$app/paths';
 
     import type { PageData } from './$types';
+
+    // Thanks Stack Overflow :)
+    function camelise(str: string) {
+        return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+            return index === 0 ? word.toLowerCase() : word.toUpperCase();
+        }).replace(/\s+/g, '');
+    }
     
     export let data: PageData;
+    let fileLinks: string[] = [];
+    let dirLinks: string[] = [];
 
-    console.log(data);
+    for(let i = 0; i < data.files.length; i++){
+        let raw = camelise(data.files[i]);
+        raw = raw.charAt(0).toUpperCase() + raw.slice(1);
+
+        fileLinks.push(raw);
+    }
+
+    for(let i = 0; i < data.directories.length; i++){
+        let raw = camelise(data.directories[i]);
+        raw = raw.charAt(0).toUpperCase() + raw.slice(1);
+        dirLinks.push(raw);
+    }
 </script>
 
 <svelte:head>
@@ -21,8 +41,8 @@
             <div class="exterior">
                 <h2 class="subtitle medium">Individual Source Books</h2>
 
-                {#each data.files as file}
-                    <a href="/book/{file}" class="link medium">{file}</a>
+                {#each data.files as file, i}
+                    <a href="/book/{fileLinks[i]}" class="link medium">{file}</a>
                 {/each}
             </div>
         </div>
@@ -30,8 +50,8 @@
             <div class="exterior">
                 <h2 class="subtitle medium">TTRPG Sets</h2>
 
-                {#each data.directories as dir}
-                    <a href="/ttrpg/{dir}" class="link medium">{dir}</a>
+                {#each data.directories as dir, i}
+                    <a href="/ttrpg/{dirLinks[i]}" class="link medium">{dir}</a>
                 {/each}
             </div>
         </div>
