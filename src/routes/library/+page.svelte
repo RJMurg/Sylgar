@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { ExternalLink} from 'lucide-svelte';
 
 	// Thanks Stack Overflow :)
 	function camelise(str: string) {
@@ -42,16 +43,20 @@
 				<h2 class="subtitle medium">Individual Source Books</h2>
 
 				{#each data.files as file, i}
-					<a href="/book/{fileLinks[i]}" class="link medium">{file}</a>
+					<a href="/library/{data.rawFiles[i]}.pdf" class="link medium">{file}</a>
 				{/each}
 			</div>
 		</div>
+
 		<div class="col-lg-6">
 			<div class="exterior">
 				<h2 class="subtitle medium">TTRPG Sets</h2>
 
 				{#each data.directories as dir, i}
-					<a href="/ttrpg/{dirLinks[i]}" class="link medium">{dir}</a>
+					<a href="/ttrpg/{data.rawDirs[i]}" class="link medium">
+						<ExternalLink color="var(--blue)" size="32"/>
+						{dir}
+					</a>
 				{/each}
 			</div>
 		</div>

@@ -5,16 +5,20 @@ export const load = (async () => {
 	const elements = fs.readdirSync('./static/library');
 	const files = [];
 	const dirs = [];
+	const rawFiles = [];
+	const rawDirs = [];
 
 	// Move all elements into relevant array.
 	for (let i = 0; i < elements.length; i++) {
 		// Files
 		if (elements[i].endsWith('.pdf')) {
 			files.push(elements[i]);
+			rawFiles.push(elements[i].slice(0, -4));
 		}
 		// Directories
 		else {
 			dirs.push(elements[i]);
+			rawDirs.push(elements[i]);
 		}
 	}
 
@@ -36,6 +40,8 @@ export const load = (async () => {
 
 	return {
 		directories: dirs,
-		files: files
+		rawDirs: rawDirs,
+		files: files,
+		rawFiles: rawFiles
 	};
 }) satisfies PageServerLoad;
