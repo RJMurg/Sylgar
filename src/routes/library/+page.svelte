@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { ExternalLink} from 'lucide-svelte';
+	import { Folder } from 'lucide-svelte';
 
 	// Thanks Stack Overflow :)
 	function camelise(str: string) {
@@ -54,7 +54,7 @@
 
 				{#each data.directories as dir, i}
 					<a href="/ttrpg/{data.rawDirs[i]}" class="link medium">
-						<ExternalLink color="var(--blue)" size="32"/>
+						<Folder color="var(--blue)" size="32" />
 						{dir}
 					</a>
 				{/each}

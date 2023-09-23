@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
-    import { ExternalLink, ChevronLeft } from 'lucide-svelte';
+	import { Folder, ChevronLeft } from 'lucide-svelte';
 
 	// Thanks Stack Overflow :)
 	function camelise(str: string) {
@@ -40,19 +40,25 @@
 <div class="container-flex">
 	<div class="row">
 		<div class="col-lg-12">
-			{#if !form}	
+			{#if !form}
 				<div class="exterior">
 					<h2 class="title large">{data.name}</h2>
 
-					{#each data.files as file, i}
-						<a href="/library/{data.slug}/{data.rawFiles[i]}.pdf" class="link medium">{file}</a>
-					{/each}
+					<div class="container-flex">
+						<div class="row">
+							{#each data.files as file, i}
+								<div class="col-lg-6">
+									<a href="/library/{data.slug}/{data.rawFiles[i]}.pdf" class="link medium">{file}</a>
+								</div>
+							{/each}
+						</div>
+					</div>
 
 					{#each data.rawDirs as dir, i}
 						<form method="POST">
-							<input type="hidden" name="action" value={data.rawDirs[i]}/>
+							<input type="hidden" name="action" value={data.rawDirs[i]} />
 							<button class="link medium">
-								<ExternalLink color="var(--blue)" size="32"/>
+								<Folder color="var(--blue)" size="32" />
 								{data.directories[i]}
 							</button>
 						</form>
@@ -60,20 +66,26 @@
 				</div>
 			{:else}
 				<div class="exterior">
-					<button class="link medium" onclick="window.history.back()">
-						<ChevronLeft color="var(--blue)" size="32"/>
+					<button class="link medium" on:click={() => window.history.back()}>
+						<ChevronLeft color="var(--blue)" size="32" />
 						Back
 					</button>
 
-					{#each form.files as file, i}
-						<a href="/library/{form.slug}/{form.path}{form.rawFiles[i]}" class="link medium">{file}</a>
-					{/each}
+					<div class="container-flex">
+						<div class="row">
+							{#each form.files as file, i}
+								<div class="col-lg-6">
+									<a href="/library/{form.slug}/{form.path}{form.rawFiles[i]}" class="link medium">{file}</a>
+								</div>
+							{/each}
+						</div>
+					</div>
 
 					{#each form.rawDirs as dir, i}
 						<form method="POST">
-							<input type="hidden" name="action" value={form.path + form.rawDirs[i]}/>
+							<input type="hidden" name="action" value={form.path + form.rawDirs[i]} />
 							<button class="link medium">
-								<ExternalLink color="var(--blue)" size="32"/>
+								<Folder color="var(--blue)" size="32" />
 								{form.dirs[i]}
 							</button>
 						</form>

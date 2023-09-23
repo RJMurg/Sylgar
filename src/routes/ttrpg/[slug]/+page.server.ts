@@ -2,7 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import fs from 'fs';
 
 export const load = (async ({ params }) => {
-    let slug = params.slug;
+	const slug = params.slug;
 	const elements = fs.readdirSync('./static/library/' + slug + '/');
 	const files = [];
 	const dirs = [];
@@ -39,11 +39,11 @@ export const load = (async ({ params }) => {
 		dirs[i] = temp;
 	}
 
-    let name = slug.replace(/([A-Z])/g, ' $1');
+	const name = slug.replace(/([A-Z])/g, ' $1');
 
 	return {
-        name: name,
-        slug: slug,
+		name: name,
+		slug: slug,
 		directories: dirs,
 		rawDirs: rawDirs,
 		files: files,
@@ -53,28 +53,27 @@ export const load = (async ({ params }) => {
 
 export const actions = {
 	default: async ({ request, params }) => {
-		let reqData = await request.formData();
-		
+		const reqData = await request.formData();
+
 		// Read directory
-		let slug = params.slug;
-		let data = fs.readdirSync('./static/library/' + slug + '/' + reqData.get('action') + '/');
+		const slug = params.slug;
+		const data = fs.readdirSync('./static/library/' + slug + '/' + reqData.get('action') + '/');
 
 		// Check if any data ends with .pdf
-		let rawFiles = [];
-		let rawDirs = [];
+		const rawFiles = [];
+		const rawDirs = [];
 
 		for (let i = 0; i < data.length; i++) {
 			if (data[i].endsWith('.pdf')) {
 				rawFiles.push(data[i]);
-			}
-			else {
+			} else {
 				rawDirs.push(data[i]);
 			}
 		}
 
 		// Convert files from CamelCase to Sentence Case
-		let files = [];
-		let dirs = [];
+		const files = [];
+		const dirs = [];
 
 		for (let i = 0; i < rawFiles.length; i++) {
 			let temp: string = rawFiles[i].replace(/([A-Z])/g, ' $1');
@@ -90,8 +89,8 @@ export const actions = {
 			temp = temp.slice(1); // Because otherwise there'd be a space before the first word. Also removes '.pdf'
 			dirs.push(temp);
 		}
-		
-		let path = reqData.get('action') + '/';
+
+		const path = reqData.get('action') + '/';
 
 		return {
 			status: 200,
