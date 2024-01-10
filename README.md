@@ -9,7 +9,7 @@ Sylgar is designed primarily for TTRPG books, but can be used for any kind of bo
 
    - [Node.js](https://nodejs.org/en/)
    - [npm](https://www.npmjs.com/)
-     (Bun can be used as a replacement for node and npm, but is not officially supported)
+   - (Bun can be used as a replacement for node and npm, but is not officially supported)
 
 2. Install Sylgar:
 
