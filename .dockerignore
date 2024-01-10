@@ -1,7 +1,0 @@
-package-lock.json
-README.md
-node_modules
-docs
-.env.example
-.gitignore
-*ignore
